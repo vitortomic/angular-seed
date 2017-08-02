@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('angularSeed', ['ngRoute','ngMockE2E']);
+var app = angular.module('angularSeed', ['ngRoute','ngMockE2E','ngMaterial']);
 app.config(
         function Config($routeProvider, $httpProvider) {
         $routeProvider
@@ -12,10 +12,11 @@ app.config(
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 });
 
-app.run(function($httpBackend, dataMockingService){
+app.run(function($httpBackend, dataMockingService, transactionsDataService){
 		console.log("fake backend is running");
         $httpBackend.whenGET(/\.html$/).passThrough();
-		$httpBackend.whenGET('/getTestUser').respond(dataMockingService.getTestUser());	
+		$httpBackend.whenGET('/getTestUser').respond(dataMockingService.getTestUser());
+        $httpBackend.whenGET('/transactions').respond(transactionsDataService.getTransactions());
 });
 
 app.run(function($rootScope){

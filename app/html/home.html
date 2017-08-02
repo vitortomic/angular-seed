@@ -1,1 +1,53 @@
-{{users}}
+<div layout="column" layout-padding>
+    <md-toolbar md-scroll-shrink>
+        <div layout-align="center center" class="md-toolbar-tools">Make a transfer</div>
+    </md-toolbar>
+</div>
+<div layout="column" layout-padding class="transactionList">
+    <md-toolbar md-scroll-shrink>
+        <div layout-align="center center" class="md-toolbar-tools">Recent Transactions</div>
+    </md-toolbar>
+    <div layout="row" flex="100" layout-padding>
+        <div flex="50">
+            <div flex="80">
+                <md-input-container class="md-block">
+                    <input placeholder="Search by typing..." ng-model="search">
+                </md-input-container>
+            </div>
+        </div>
+        <div flex="50" layout="row" layout-align="center center">
+            <span layout-align="start center"> Sort by:</span>
+            <md-button md-no-ink class="md-primary sortButton" ng-click="sortType = 'transactionDate'; sortReverse = !sortReverse">
+                DATE
+                <span ng-show="sortType == 'transactionDate' && !sortReverse">&#9660;</span>
+                <span ng-show="sortType == 'transactionDate' && sortReverse">&#9650;</span>
+            </md-button>
+            <md-button md-no-ink class="md-primary sortButton" ng-click="sortType = 'merchant'; sortReverse = !sortReverse">
+                BENEFICIARY
+                <span ng-show="sortType == 'merchant' && !sortReverse">&#9660;</span>
+                <span ng-show="sortType == 'merchant' && sortReverse">&#9650;</span>
+            </md-button>
+            <md-button md-no-ink class="md-primary sortButton" ng-click="sortType = 'amount/1'; sortReverse = !sortReverse;">
+                AMOUNT
+                <span ng-show="sortType == 'amount' && !sortReverse">&#9660;</span>
+                <span ng-show="sortType == 'amount' && sortReverse">&#9650;</span>
+            </md-button>
+        </div>   
+    </div>
+    <div layout="row">
+        <md-list layout-padding flex="100">
+            <md-list-item class="listElement" ng-style="{'border-left' : '6px solid ' + transaction.categoryCode}" 
+                ng-repeat = "transaction in transactions | orderBy:sortType:sortReverse | filter:search">
+                <p flex="10">{{transaction.transactionDate | date:'MMM. dd'}}</p>
+                <div flex="10"> 
+                    <img  style="height:50px;width:50px" data-ng-src="{{transaction.merchantLogo}}"></img>
+                </div>
+                <div flex="60" layout="column" layout-margin="5px">
+                    <h4>{{transaction.merchant}}</h4>
+                    <h5>{{transaction.transactionType}}</h5>
+                </div>
+                <p flex="5">-${{transaction.amount}}</p>
+            </md-list-item>
+        </md-list>  
+    </div>
+</div>

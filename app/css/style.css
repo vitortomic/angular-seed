@@ -1,0 +1,12 @@
+.listElement{
+	border: 1px solid grey;
+}
+.transactionList{
+	min-width: 476px;
+	overflow: auto;
+}
+.sortButton{
+	height:40px;
+	width:120px;
+	border:1px solid black;
+}
