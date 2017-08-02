@@ -19,8 +19,8 @@
             <span layout-align="start center"> Sort by:</span>
             <md-button md-no-ink class="md-primary sortButton" ng-click="sortType = 'transactionDate'; sortReverse = !sortReverse">
                 DATE
-                <span ng-show="sortType == 'transactionDate' && !sortReverse">&#9660;</span>
-                <span ng-show="sortType == 'transactionDate' && sortReverse">&#9650;</span>
+                <span ng-show="sortType == 'transactionDate' && !sortReverse">&#9650;</span>
+                <span ng-show="sortType == 'transactionDate' && sortReverse">&#9660;</span>
             </md-button>
             <md-button md-no-ink class="md-primary sortButton" ng-click="sortType = 'merchant'; sortReverse = !sortReverse">
                 BENEFICIARY
@@ -29,8 +29,8 @@
             </md-button>
             <md-button md-no-ink class="md-primary sortButton" ng-click="sortType = 'amount/1'; sortReverse = !sortReverse;">
                 AMOUNT
-                <span ng-show="sortType == 'amount' && !sortReverse">&#9660;</span>
-                <span ng-show="sortType == 'amount' && sortReverse">&#9650;</span>
+                <span ng-show="sortType == 'amount/1' && !sortReverse">&#9650;</span>
+                <span ng-show="sortType == 'amount/1' && sortReverse">&#9660;</span>
             </md-button>
         </div>   
     </div>

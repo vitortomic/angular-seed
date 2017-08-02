@@ -1,9 +1,12 @@
-app.controller('indexCtrl', function ($scope, usersService, $http, transactionService) {
+app.controller('indexCtrl', function ($scope, usersService, $http, transactionService, $filter) {
     
     transactionService.getTransactions().then(function(transactions){
         console.log(transactions);
         $scope.sortType = 'transactionDate';
-        $scope.sortReverse = false;
+        $scope.sortReverse = true;
+        transactions.forEach(function(element){
+            element.dateString = $filter('date')(element.transactionDate, 'MMM. dd')
+        })
         $scope.transactions = transactions;
     })
 
