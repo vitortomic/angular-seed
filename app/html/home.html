@@ -2,27 +2,34 @@
     <md-toolbar md-scroll-shrink>
         <div layout-align="center center" class="md-toolbar-tools">Make a transfer</div>
     </md-toolbar>
-    <form name="submitForm" layout="column">
+    <form name="submitForm" layout="column" layout-margin="20">
         <md-input-container>
             <label><b>FROM ACCOUNT</b></label>
-            <input ng-model="fromAccount" disabled>
+            <input ng-model="transaction.fromAccount" disabled>
         </md-input-container>
         <md-input-container>
             <label><b>TO ACCOUNT</b></label>
-            <input required ng-model="toAccount">
+            <input required name="toAccount" ng-model="transaction.toAccount">
+            <div ng-messages="submitForm.toAccount.$error" multiple>
+                <div ng-message="required">
+                    This field is required
+                </div>
+            </div>
         </md-input-container>
         <md-input-container >
             <label><b>AMOUNT</b></label>
-            <input required type="number" step="any" max="500" ng-model="amount">
-            <div ng-messages="submitForm.description.$error">
+            <input required type="number" name="amount" step="any" max="500" ng-model="transaction.amount">
+            <div ng-messages="submitForm.amount.$error" multiple>
+                <div ng-message="required">
+                    This field is required
+                </div>
                 <div ng-message="max">
                     The maximum amount is $500
                 </div>
             </div>
         </md-input-container>
+        <md-button class="md-raised md-warn" ng-disabled="submitForm.$invalid" ng-click="submit()">Submit</md-button>
     </form>
-    
-
 </div>
 <div layout="column" layout-padding class="transactionList">
     <md-toolbar md-scroll-shrink>

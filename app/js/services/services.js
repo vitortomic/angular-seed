@@ -1,8 +1,19 @@
-app.factory('dataMockingService', [function(){
-    var testUser = {firstname: 'Vitor', lastname: 'Tomic', age: 26};
+app.factory('senderService', [function(){
+    var testSender = {name: "Free Checking(4692)", amount: "5824.76"};
+    var getSender = function(){
+        var sender = localStorage.getItem("testSender");
+        if(sender) return JSON.parse(sender);
+        localStorage.setItem("testSender", JSON.stringify(testSender));
+        return testSender;
+    };
     return {
-        getTestUser: function(){
-            return testUser;
+        getSender: function(){
+            return getSender();
+        },
+        chargeSender: function(amount){
+            var sender = getSender();
+            sender.amount -= amount;
+            localStorage.setItem("testSender", JSON.stringify(sender));
         }
     }
 }]);
