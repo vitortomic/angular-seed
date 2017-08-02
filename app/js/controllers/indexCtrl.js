@@ -1,5 +1,5 @@
 app.controller('indexCtrl', function ($scope, usersService, $http, transactionService, $filter) {
-    
+    $scope.fromAccount = "stagod";
     transactionService.getTransactions().then(function(transactions){
         console.log(transactions);
         $scope.sortType = 'transactionDate';
