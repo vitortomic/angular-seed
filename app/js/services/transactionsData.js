@@ -4,7 +4,7 @@ app.factory('transactionsDataService',[function(){
             if(!localStorage.getItem("transactions")){
                 localStorage.setItem("transactions", JSON.stringify(transactions));
             }
-            return transactions;
+            return JSON.parse(localStorage.getItem("transactions"));
         },
         addTransaction : function(transaction){
             transactions.push(transaction);

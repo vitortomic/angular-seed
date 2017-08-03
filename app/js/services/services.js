@@ -41,7 +41,17 @@ app.factory('transactionService', ['$http', function($http){
                     return response.data;
                 }, 
                 function errorCallbacl(error){
-                    console.log("Error: " + e.message);
+                    console.log("Error: " + error.message);
+                }
+           )
+       },
+       addTransaction: function(transaction){
+           return $http.post('/transactions', transaction).then(
+               function successCallback(response){
+                    return response.data;
+                }, 
+                function errorCallbacl(error){
+                    console.log("Error: " + error.message);
                 }
            )
        }

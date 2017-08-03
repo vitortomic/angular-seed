@@ -25,6 +25,15 @@ app.controller('indexCtrl', function ($scope, usersService, $http, transactionSe
         $scope.transactions = transactions;
     })
 
+    var refreshTransactions = function(){
+        transactionService.getTransactions().then(function(transactions){
+        transactions.forEach(function(element){
+            element.dateString = $filter('date')(element.transactionDate, 'MMM. dd')
+        });
+        $scope.transactions = transactions;
+        });
+    }
+
    $scope.getCategoryColor = function(transaction){
        return '{\'border-left\' : \'6px solid ' + transaction.categoryCode + '\'}';
    }
@@ -71,7 +80,9 @@ app.controller('indexCtrl', function ($scope, usersService, $http, transactionSe
 
   var createTransaction = function(){
       senderService.chargeSender($scope.transactionForSubmit.amount);
-      $scope.transactions.push($scope.transactionForSubmit);
+      transactionService.addTransaction($scope.transactionForSubmit).then(function(transactions){
+        $scope.transactions = transactions;
+      });
   }
 
 });
