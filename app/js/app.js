@@ -41,7 +41,7 @@ app.config(
 });
 
 /**
- * Mock backend
+ * Mock backend intercepts every $http request
  */
 app.run(function($httpBackend, transactionsDataService){
 		console.log("fake backend is running");

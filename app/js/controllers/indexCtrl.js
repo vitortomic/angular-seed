@@ -19,20 +19,14 @@ app.controller('indexCtrl', function ($scope, usersService, $http, transactionSe
         console.log(transactions);
         $scope.sortType = 'transactionDate';
         $scope.sortReverse = true;
+        /*in order for search by date string to work we need to add the formated string to the
+            to the elements
+        */
         transactions.forEach(function(element){
             element.dateString = $filter('date')(element.transactionDate, 'MMM. dd')
         })
         $scope.transactions = transactions;
     })
-
-    var refreshTransactions = function(){
-        transactionService.getTransactions().then(function(transactions){
-        transactions.forEach(function(element){
-            element.dateString = $filter('date')(element.transactionDate, 'MMM. dd')
-        });
-        $scope.transactions = transactions;
-        });
-    }
 
    $scope.getCategoryColor = function(transaction){
        return '{\'border-left\' : \'6px solid ' + transaction.categoryCode + '\'}';
@@ -79,7 +73,9 @@ app.controller('indexCtrl', function ($scope, usersService, $http, transactionSe
   }
 
   var createTransaction = function(){
+      //charges sender for the amount
       senderService.chargeSender($scope.transactionForSubmit.amount);
+      //transaction.addTransaction returns transactions with the newly added one
       transactionService.addTransaction($scope.transactionForSubmit).then(function(transactions){
         $scope.transactions = transactions;
       });

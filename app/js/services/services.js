@@ -1,3 +1,6 @@
+/**
+ * Uses localstorage to persist sender data
+ */
 app.factory('senderService', [function(){
     var testSender = {name: "Free Checking(4692)", amount: "5824.76"};
     var getSender = function(){
@@ -11,6 +14,7 @@ app.factory('senderService', [function(){
             return getSender();
         },
         chargeSender: function(amount){
+            //TODO: implement handling of amount too low exception
             var sender = getSender();
             sender.amount -= amount;
             localStorage.setItem("testSender", JSON.stringify(sender));
@@ -18,21 +22,10 @@ app.factory('senderService', [function(){
     }
 }]);
 
-app.factory('usersService', ['$http', function($http){
-    return {
-        getUsers: function(){
-            return $http.get('/getTestUser').then(
-                function successCallback(response){
-                    return response.data;
-                }, 
-                function errorCallbacl(error){
-                    console.log("Error: " + e.message);
-                }
-            )
-        }
-    }
-}]);
-
+/**
+ * service for working with transactions - uses $http as if in real application
+ * while the data is provied by the fake http backend
+ */
 app.factory('transactionService', ['$http', function($http){
     return {
        getTransactions: function(){
@@ -55,5 +48,20 @@ app.factory('transactionService', ['$http', function($http){
                 }
            )
        }
+    }
+}]);
+
+app.factory('usersService', ['$http', function($http){
+    return {
+        getUsers: function(){
+            return $http.get('/getTestUser').then(
+                function successCallback(response){
+                    return response.data;
+                }, 
+                function errorCallbacl(error){
+                    console.log("Error: " + error.message);
+                }
+            )
+        }
     }
 }]);
